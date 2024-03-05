@@ -37,6 +37,7 @@ const server = new ApolloServer({
         const secret = 'secret';
         const decoded = jwt.verify(token, secret) as JwtPayload;
         const userId = decoded._id
+        console.log("aaaa ", userId)
         const res = await User.findById(userId)
         if(!res){
         return decoded;

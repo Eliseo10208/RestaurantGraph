@@ -91,7 +91,7 @@ import User from '../models/userModel';
         if (!user || user.password !== args.password)
           throw new Error("Credenciales invalidas");
         const token = generateToken(user);
-        console.log(token);
+        console.log(token);   
         return token;
       } catch (error) {
         console.log(error);
