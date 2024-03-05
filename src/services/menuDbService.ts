@@ -1,5 +1,5 @@
 import MenuItemModel from '../models/menuItemModel';
-
+import userModel from '../models/userModel';
 const dbService = {
   getAllMenuItemsPaginated: async (skip: number, limit: number) => {
     return await MenuItemModel.find()
@@ -39,6 +39,7 @@ const dbService = {
   setMenuItemAvailability: async (id: string, available: boolean) => {
     return await MenuItemModel.findByIdAndUpdate(id, { available }, { new: true });
   },
+  
 };
 
 export default dbService;

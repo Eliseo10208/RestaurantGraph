@@ -13,12 +13,14 @@
         "express-graphql": "^0.12.0",
         "graphql": "^15.8.0",
         "mongoose": "^8.2.0",
-        "ts-node": "^10.9.2"
+        "ts-node": "^10.9.2",
+        "jsonwebtoken": "^9.0.2"
     },
     "scripts": {
         "start": "nodemon --exec ts-node index.ts"
     },
     "devDependencies": {
-        "typescript": "^5.3.3"
+        "typescript": "^5.3.3",
+        "@types/jsonwebtoken": "^9.0.6"
     }
 }
