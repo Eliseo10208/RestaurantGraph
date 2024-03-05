@@ -13,7 +13,9 @@ const resolvers = {
       return menuItem;
     },
     menuItemsByPriceRange: async (_: void, args: { minPrice: number; maxPrice: number }) => {
-      return await businessLogic.getMenuItemsByPriceRange(args.minPrice, args.maxPrice);
+      const menuItems = await businessLogic.getMenuItemsByPriceRange(args.minPrice, args.maxPrice);
+      await WebhookController('menuItemsByPriceRange', JSON.stringify(menuItems));
+      return menuItems;
     },
 
     availableMenuItems: async (_: void, args: { page: number; pageSize: number }) => {

@@ -11,7 +11,8 @@ const businessLogic = {
     return await dbService.getMenuItemById(id);
   },
   addMenuItem: async (name: string, description: string, price: number) => {
-    return await dbService.createMenuItem(name, description, price);
+    const newItem = await dbService.createMenuItem(name, description, price);
+    return newItem;
   },
   removeMenuItemById: async (id: string) => {
     return await dbService.deleteMenuItemById(id);
