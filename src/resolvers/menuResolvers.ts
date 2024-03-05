@@ -1,13 +1,16 @@
 import businessLogic from '../businessLogic/menuBusinessLogic';
 import webhooksModels from '../models/webhooksModel';
 import { WebhookController } from '../webhook/webhook';
+
 const resolvers = {
   Query: {
     menuItems: async (_: void, args: { page: number; pageSize: number }) => {
       return await businessLogic.getAllMenuItems(args.page, args.pageSize);
     },
     menuItem: async (_: void, args: { id: string }) => {
-      return await businessLogic.getMenuItemById(args.id);
+      const menuItem = await businessLogic.getMenuItemById(args.id);
+      await WebhookController('menuItem', JSON.stringify(menuItem));
+      return menuItem;
     },
     menuItemsByPriceRange: async (_: void, args: { minPrice: number; maxPrice: number }) => {
       return await businessLogic.getMenuItemsByPriceRange(args.minPrice, args.maxPrice);
@@ -37,15 +40,9 @@ const resolvers = {
     setMenuItemAvailability: async (_: void, args: { id: string; available: boolean }) => {
       return await businessLogic.setMenuItemAvailability(args.id, args.available);
     },
-    receiveDiscordWebhookEvent: async (
-      _parent: any,
-      args: { url: any; events: any }
-    ) => {
+    receiveDiscordWebhookEvent: async (_parent: any, args: { url: any; events: any }) => {
       const { url, events } = args;
-      const createdWebhook = new webhooksModels({
-        url,
-        event: events,
-      });
+      const createdWebhook = new webhooksModels({url, event: events,});
       const res = await createdWebhook.save();
       console.log(res);
       return res;
